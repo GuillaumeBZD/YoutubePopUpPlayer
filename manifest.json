@@ -3,7 +3,9 @@
   "version": "1.0",
   "description": "Popup your youtube video to display it fullsize when you watch it on splitted screen",
   "permissions": [
-    "tabs"
+    "tabs",
+    "activeTab",
+    "scripting"
   ],
   "host_permissions" : ["https://*.youtube.com/*"],
   "background" : {
@@ -11,7 +13,7 @@
   },
   "content_scripts" : [
     {
-      "matches": ["https://*.youtube.com/*"],
+      "matches": ["*://*.youtube.com/*"],
       "js" : ["contentScript.js"]
     }
   ],

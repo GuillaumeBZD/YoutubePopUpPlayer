@@ -1,11 +1,10 @@
 (() => {
-    let youtubeLeftControls, youtubePlayer;
+    let youtubeRightControls, youtubePlayer;
     let currentVideo = "";
-    const currentUrl = new URL(window.location.href);
+    let currentUrl = new URL(window.location.href);
 
-    chrome.runtime.onMessage.addListener((obj, sender, response) => {
-        const {type, value, videoId} = obj;
-
+    chrome.runtime.onMessage.addListener((obj) => {
+        const {type, videoId} = obj;
         if (type === "NEW") {
             currentVideo = videoId;
             addButtonOnVideo();
@@ -21,6 +20,7 @@
             popupBtn.src = chrome.runtime.getURL("assets/popup.svg");
             popupBtn.className = "ytp-button popup-btn";
             popupBtn.style.marginRight = "10px"
+            popupBtn.style.minWidth = "30px"
             popupBtn.title = "Popup your video";
         } else {
             const popoutBtn = document.createElement("img");
@@ -28,27 +28,30 @@
             popoutBtn.src = chrome.runtime.getURL("assets/popout.svg");
             popoutBtn.className = "ytp-button popout-btn";
             popoutBtn.style.marginRight = "10px"
+            popoutBtn.style.minWidth = "30px"
             popoutBtn.title = "Popout your video";
         }
-        youtubeLeftControls = document.getElementsByClassName("ytp-left-controls")[0];
+        youtubeRightControls = document.getElementsByClassName("ytp-right-controls")[0];
         youtubePlayer = document.getElementsByClassName("video-stream")[0];
-        youtubeLeftControls.appendChild(buttonToDisplay);
+        youtubeRightControls.insertBefore(buttonToDisplay, youtubeRightControls.children[0]);
         buttonToDisplay.addEventListener("click", onExtensionButtonClickEventHandler);
     };
 
     const removeExistingButtons = () => {
-        const existingPopupBtn = document.querySelector(".popupBtn")
-        const existingPopoutBtn = document.querySelector(".popoutBtn")
+        const existingPopupBtn = document.querySelector(".popup-btn")
+        const existingPopoutBtn = document.querySelector(".popout-btn")
         if (existingPopupBtn) existingPopupBtn.remove();
         if (existingPopoutBtn) existingPopoutBtn.remove();
     }
 
     const onExtensionButtonClickEventHandler = () => {
-        currentUrl.href.includes("watch") ?
-            currentUrl.href = currentUrl.href.replace(/\/watch\?v=/, "/embed/") + "?autoplay=1"
-            :
-            currentUrl.href = currentUrl.href.replace("/embed/", "/watch?v=").replace("?autoplay=1", "")
-        window.location.href = currentUrl.toString();
+        let newUrl;
+        if (currentUrl.href.includes("watch")) {
+            newUrl = `https://www.youtube.com/embed/${currentVideo}?autoplay=1`;
+        } else if (currentUrl.href.includes("embed")) {
+            newUrl = `https://www.youtube.com/watch?v=${currentVideo}`;
+        }
+        window.location.href = newUrl;
     };
 
     addButtonOnVideo();
