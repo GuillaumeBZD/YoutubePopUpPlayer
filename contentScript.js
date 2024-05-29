@@ -20,7 +20,8 @@
             popupBtn.src = chrome.runtime.getURL("assets/popup.svg");
             popupBtn.className = "ytp-button popup-btn";
             popupBtn.style.marginRight = "10px"
-            popupBtn.style.minWidth = "30px"
+            popupBtn.style.minWidth = "25px"
+            popupBtn.style.maxWidth = "25px"
             popupBtn.title = "Popup your video";
         } else {
             const popoutBtn = document.createElement("img");
@@ -28,7 +29,8 @@
             popoutBtn.src = chrome.runtime.getURL("assets/popout.svg");
             popoutBtn.className = "ytp-button popout-btn";
             popoutBtn.style.marginRight = "10px"
-            popoutBtn.style.minWidth = "30px"
+            popoutBtn.style.minWidth = "25px"
+            popoutBtn.style.maxWidth = "25px"
             popoutBtn.title = "Popout your video";
         }
         youtubeRightControls = document.getElementsByClassName("ytp-right-controls")[0];
