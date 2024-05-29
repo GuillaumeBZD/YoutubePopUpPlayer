@@ -1,5 +1,3 @@
-# WIP current bug when changing video
-
 # Chrome Extension: YouTube Popup Mode
 
 This Chrome extension enables a "popup" mode while watching YouTube videos, which is ideal for multitasking or when using split-screen.
