@@ -20,12 +20,14 @@
             buttonToDisplay = popupBtn
             popupBtn.src = chrome.runtime.getURL("assets/popup.svg");
             popupBtn.className = "ytp-button popup-btn";
+            popupBtn.style.marginRight = "10px"
             popupBtn.title = "Popup your video";
         } else {
             const popoutBtn = document.createElement("img");
             buttonToDisplay = popoutBtn
             popoutBtn.src = chrome.runtime.getURL("assets/popout.svg");
             popoutBtn.className = "ytp-button popout-btn";
+            popoutBtn.style.marginRight = "10px"
             popoutBtn.title = "Popout your video";
         }
         youtubeLeftControls = document.getElementsByClassName("ytp-left-controls")[0];
